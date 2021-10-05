@@ -50,13 +50,15 @@ def profile(request):
         form = UserProfileForm(data=request.POST, instance=request.user, files=request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('users:profile'))
+            messages.success(request, 'Профиль сохранён.')
         else:
-            print(form.errors)
+            messages.error(request, 'Профиль не сохранён!')
+        return HttpResponseRedirect(reverse('users:profile'))
+
     context = {
         'title': 'Профиль',
         'form': UserProfileForm(instance=request.user),
-        'baskets': Basket.objects.filter(user=request.user)
+        'baskets': Basket.objects.filter(user=request.user),
 
     }
     return render(request, 'users/profile.html', context)
