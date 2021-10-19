@@ -91,10 +91,10 @@ class ProfileFormView(UpdateView, BaseClassContextMixin):
     def dispatch(self, request, *args, **kwargs):
         return super(ProfileFormView, self).dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(ProfileFormView, self).get_context_data(**kwargs)
-        context['baskets'] = Basket.objects.filter(user=self.request.user)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(ProfileFormView, self).get_context_data(**kwargs)
+    #     context['baskets'] = Basket.objects.filter(user=self.request.user)
+    #     return context
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST, files=request.FILES, instance=self.get_object())
