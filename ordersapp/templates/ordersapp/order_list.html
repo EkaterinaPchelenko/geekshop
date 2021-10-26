@@ -35,18 +35,14 @@
                             </a>
                         </td>
                         <td>
-                            {% if item.status == 'FM' %}
-                                <a href="{% url 'orders:update' item.pk %}">
-                                    редактировать
-                                </a>
-                            {% endif %}
+                            <a href="{% url 'orders:update' item.pk %}">
+                                редактировать
+                            </a>
                         </td>
                         <td>
-                            {% if item.status == 'FM' %}
-                                <a href="{% url 'orders:delete' item.pk %}">
-                                    удалить
-                                </a>
-                            {% endif %}
+                            <a href="{% url 'orders:delete' item.pk %}">
+                                удалить
+                            </a>
                         </td>
                     </tr>
                 {% endif %}

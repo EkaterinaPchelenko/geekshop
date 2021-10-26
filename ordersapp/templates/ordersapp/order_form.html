@@ -30,13 +30,25 @@
                                    {% endfor %}
                                {% endif %}
                                {{ field.errors.as_ul }}
-                               {{ field }}
+
+                           {% if field.name == 'price' %}
+                               {% if not field.value %}
+                                {% else %}
+                                    <span class="orderitems-{{ forloop.parentloop.counter }}-price">
+                                        {{ field.value }} руб </span>
+                                {% endif %}
+                           {% else %}
+                                {{ field }}
+                           {% endif %}
+
+
                            </td>
                        {% endfor %}
                    </tr>
                {% endfor %}
            </table>
-           <button type="submit" value="сохранить" class="btn btn-default btn-round form-control last">сохранить</button>
+
+           <button type="submit" value="сохранить" class="btn btn-default btn-round form-control last">cохранить</button>
            {% include 'ordersapp/includes/inc_order_actions.html' %}
        </form>
    </div>
