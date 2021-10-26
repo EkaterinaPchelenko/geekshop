@@ -20,7 +20,7 @@ from .views import OrderList, OrderDetail, OrderDelete, OrderCreate, OrderUpdate
 
 from mainapp.views import index
 
-app_name = 'ordersapp'
+app_name = 'orders'
 urlpatterns = [
     path('', OrderList.as_view(), name='list'),
     path('create/', OrderCreate.as_view(), name='create'),
