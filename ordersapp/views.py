@@ -27,8 +27,7 @@ class OrderCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderCreate, self).get_context_data(**kwargs)
-        context['title'] = 'GeekShop | Создать заказ'
-
+        context['title'] = 'GeekShop - Создать заказ'
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=1)
 
         if self.request.POST:
@@ -43,7 +42,6 @@ class OrderCreate(CreateView):
                     form.initial['product'] = basket_items[num].product
                     form.initial['quantity'] = basket_items[num].quantity
                     form.initial['price'] = basket_items[num].product.price
-
                 basket_items.delete()
             else:
                 formset = OrderFormSet()
@@ -62,11 +60,10 @@ class OrderCreate(CreateView):
                 orderitems.instance = self.object
                 orderitems.save()
 
-                if self.object.get_total_cost() == 0:
-                    self.object.delete()
+            if self.object.get_total_cost() == 0:
+                self.object.delete()
 
-        return super(OrderCreate, self).form_valid(form)
-
+        return super().form_valid(form)
 
 class OrderUpdate(UpdateView):
     model = Order
@@ -75,20 +72,19 @@ class OrderUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderUpdate, self).get_context_data(**kwargs)
-        context['title'] = 'GeekShop | Обновить заказ'
-
+        context['title'] = 'GeekShop - Обновление заказа'
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=1)
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, instance=self.object)
         else:
-            formset = OrderFormSet(instance=self.object)
+            queryset = self.object.orderitems.select_related()
+            formset = OrderFormSet(instance=self.object,queryset=queryset)
             for form in formset:
                 if form.instance.pk:
                     form.initial['price'] = form.instance.product.price
         context['orderitems'] = formset
         return context
-
 
     def form_valid(self, form):
         context = self.get_context_data()
@@ -101,10 +97,11 @@ class OrderUpdate(UpdateView):
                 orderitems.instance = self.object
                 orderitems.save()
 
-                if self.object.get_total_cost() == 0:
-                    self.object.delete()
+            if self.object.get_total_cost() == 0:
+                self.object.delete()
 
-        return super(OrderUpdate, self).form_valid(form)
+        return super().form_valid(form)
+
 
 
 class OrderDelete(DeleteView):

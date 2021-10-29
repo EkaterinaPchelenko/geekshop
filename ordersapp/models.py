@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 # Create your models here.
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 from django.dispatch import receiver
 
 from baskets.models import Basket
@@ -30,7 +30,7 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name='создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='обновлён', auto_now=True)
-    status = models.CharField(choices='', verbose_name=ORDER_STATUS_CHOICES, max_length=3, default='')
+    status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='статус', max_length=3, default='')
     is_active = models.BooleanField(verbose_name='активный', default=True)
 
     def __str__(self):
@@ -76,8 +76,8 @@ def product_quantity_update_delete(sender, instance, **kwargs):
     instance.save()
 
 
-@receiver(pre_delete, sender=Basket)
-@receiver(pre_delete, sender=OrderItem)
+@receiver(pre_save, sender=Basket)
+@receiver(pre_save, sender=OrderItem)
 def product_quantity_update_save(sender, instance, **kwargs):
     if instance.pk:
         instance.product.quantity -= instance.quantity - instance.get_item(int(instance.pk))
