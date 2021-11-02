@@ -1,0 +1,174 @@
+    1  ssh-copy-id root@151.248.117.226
+    2  ssh-keygen
+    3  cat /root/.ssh/id_rsa.pub
+    4  apt update
+    5  apt install nginx
+    6  apt install postgresql postgresql-contrib
+    7  apt install python3-venv
+    8  apt install git-core
+    9  nano /etc/postgresql/10/main/pg_hba.conf 
+   10  systemctl restart postgresql
+   11  useradd -g www-data -m django
+   12  cd /home/django/
+   13  git clone git@github.com:EkaterinaPchelenko/geekshop.git
+   14  ls
+   15  python3 -m venv venv
+   16  source venv/bin/activate
+   17  ls
+   18  git checkout curse_2_lesson_5
+   19  git branch
+   20  cd geekshop/
+   21  ls
+   22  git checkout curse_2_lesson_5
+   23  ls
+   24  cat requirements.txt 
+   25  pip3 install -r requirements.txt
+   26  dpkg --list
+   27  pip list -o
+   28  pip3 list -o
+   29  pip install --upgrade pip
+   30  pip3 install -r requirements.txt
+   31  apt install numpy==1.21.0
+   32  pip3 install -r requirements.txt
+   33  cat requirements.txt 
+   34  pip3 install oauthlib==3.1.1
+   35  Pillow==8.0.1
+   36  psutil==5.8.0
+   37  psycopg2-binary==2.9.1
+   38  pycparser==2.20
+   39  PyJWT==2.3.0
+   40  python-dotenv==0.19.1
+   41  python3-openid==3.2.0
+   42  pytz==2021.1
+   43  requests==2.25.1
+   44  requests-oauthlib==1.3.0
+   45  social-auth-app-django==5.0.0
+   46  social-auth-core==4.1.0
+   47  sqlparse==0.4.2
+   48  urllib3==1.26.3
+   49  pip3 install Pillow==8.0.1
+   50  pip3 install psutil==5.8.0
+   51  pip3 install psycopg2-binary==2.9.1
+   52  pip3 install pycparser==2.20
+   53  pip3 installPyJWT==2.3.0
+   54  pip3 install PyJWT==2.3.0
+   55  pip3 install python-dotenv==0.19.1
+   56  pip3 install python3-openid==3.2.0
+   57  pip3 install pytz==2021.1
+   58  pip3 install requests==2.25.1
+   59  pip3 install requests-oauthlib==1.3.0
+   60  pip3 install social-auth-app-django==5.0.0
+   61  pip3 install social-auth-core==4.1.0
+   62  pip3 install sqlparse==0.4.2
+   63  pip3 install urllib3==1.26.3
+   64  pip3 install gunicorn
+   65  python3 manage.py migrate
+   66  ls
+   67  cd /home/django/
+   68  ls
+   69  cd geekshop
+   70  ls
+   71  pip3 install -r requirements.txt
+   72  cd ..
+   73  pip3 install -r requirements.txt
+   74  pip install -r requirements.txt
+   75  apt install -r requirements.txt
+   76  apt install requirements.txt
+   77  pip3 install -r requirements.txt
+   78  cd geekshop
+   79  pip freeze
+   80  cd ..
+   81  cd venv
+   82  pip freeze
+   83  systemctl restart postgresql
+   84  cd ..
+   85  systemctl restart postgresql
+   86  systemctl status postgresql
+   87  pip freeze
+   88  git clone git@github.com:EkaterinaPchelenko/geekshop.git
+   89  pip install django
+   90  source env/bin/activate
+   91  ls
+   92  source env/bin/activate
+   93  source venv/bin/activate
+   94  pip freeze
+   95  pip3 install -r requirements.txt
+   96  cd geekshop
+   97  pip install django
+   98  python3 manage.py migrate
+   99  pip3 install gunicorn
+  100  psql -U postgres
+  101  create database geekshop
+  102  psql -U postgre
+  103  python3 manage.py fill_db
+  104  runserver 0.0.0.0:8000
+  105  python3 manage.py runserver 0.0.0.0:8000
+  106  sudo nano /etc/systemd/system/gunicorn.service
+  107  systemctl enable gunicorn
+  108  systemctl start gunicorn
+  109  systemctl status gunicorn
+  110  nano /etc/nginx/sites-available/geekshop
+  111  ln -s /etc/nginx/sites-available/geekshop /etc/nginx/sites-enabled/
+  112  rm /etc/nginx/sites-enabled/default 
+  113  systemctl restart gunicorn
+  114  systemctl restart nginx
+  115  systemctl status nginx
+  116  systemctl status gunicorn
+  117  nginx -t
+  118  tail -f /var/log/nginx/error.log 
+  119  sudo nano /etc/systemd/system/gunicorn.service
+  120  systemctl status nginx
+  121  systemctl status gunicorn
+  122  tail -f /var/log/nginx/error.log 
+  123  ls
+  124  sudo nano /etc/systemd/system/gunicorn.service
+  125  systemctl enable gunicorn
+  126  systemctl restart gunicorn
+  127  systemctl status gunicorn
+  128  systemctl restart gunicorn
+  129  systemctl status gunicorn
+  130  systemctl restart gunicorn
+  131  systemctl status gunicorn
+  132  systemctl restart gunicorn
+  133  systemctl status gunicorn
+  134  sudo nano /etc/systemd/system/gunicorn.service
+  135  systemctl restart gunicorn
+  136  systemctl status gunicorn
+  137  sudo nano /etc/systemd/system/gunicorn.service
+  138  systemctl restart gunicorn
+  139  systemctl status gunicorn
+  140  systemctl restart gunicorn
+  141  systemctl daemon-reload
+  142  systemctl restart gunicorn
+  143  systemctl status gunicorn
+  144  systemctl restart gunicorn
+  145  ls
+  146  exit() ;
+  147  exit
+  148  apt update
+  149  cd /home/django/
+  150  ls
+  151  source venv/bin/activate
+  152  python3 manage.py migrate
+  153  cd geekshop/
+  154  python3 manage.py migrate
+  155  python3 manage.py fill_db
+  156  python3 manage.py runserver
+  157  chown -R django /home/django/
+  158  chmod -R 755 /home/django/geekshop/
+  159  sudo nano /etc/systemd/system/gunicorn.service
+  160  udo systemctl enable gunicorn
+  161  sudo systemctl enable gunicorn
+  162  sudo systemctl start gunicorn
+  163  sudo systemctl status gunicorn
+  164  sudo nano /etc/nginx/sites-available/geekshop
+  165  sudo nginx -t
+  166  sudo systemctl restart nginx
+  167  sudo systemctl status nginx
+  168  sudo systemctl status gunicorn
+  169  sudo ln -s /etc/nginx/sites-available/geekshop /etc/nginx/sites-enabled
+  170  tail -f var/log/nginx/error.log
+  171  tail -f /var/log/nginx/error.log
+  172  sudo systemctl status nginx
+  173  sudo systemctl status gunicorn
+  174  history > /tmp/history.txt
