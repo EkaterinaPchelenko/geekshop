@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.cache import cache_page, never_cache
 from django.views.generic import DetailView
 
 from mainapp.models import ProductCategory, Product
@@ -49,14 +50,16 @@ def get_product(pk):
     return get_object_or_404(Product, pk=pk)
 
 
+# @cache_page(3600)
+@never_cache
 def products(request, category_id=None, page_id=1):
     # products = Product.objects.all()
     # categories = ProductCategory.objects.all()
 
-    # products = Product.objects.filter(category_id=category_id).select_related(
-    #     'category') if category_id != None else Product.objects.all()
+    products = Product.objects.filter(category_id=category_id).select_related(
+        'category') if category_id != None else Product.objects.all()
 
-    products =get_link_product()
+    # products =get_link_product()
 
     paginator = Paginator(products, per_page=3)
     try:
@@ -69,7 +72,8 @@ def products(request, category_id=None, page_id=1):
     context = {
         "title": "Каталог",
         "products": products_paginator,
-        "categories": get_link_category,
+        # "categories": get_link_category,
+        "categories": ProductCategory.objects.all(),
     }
     return render(request, 'mainapp/products.html', context)
 
