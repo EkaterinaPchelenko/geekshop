@@ -1,8 +1,11 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.http import HttpResponseRedirect
+from django.db import connection
+from django.db.models import F
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -85,12 +88,27 @@ class CategoryCreateView(CreateView):
         return context
 
 
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(query['sql']) for query in update_queries]
+
+
 class CategoryUpdateView(UpdateView):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
     form_class = CategoryEditForm
     context_object_name = 'category'
     success_url = reverse_lazy('admins:admins_category')
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                print(f'Применяется скидка {discount} % к товарам категории {self.object.name}')
+                self.object.product_set.update(price=F('price')*(1-discount/100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryUpdateView, self).get_context_data(**kwargs)
@@ -109,8 +127,16 @@ class CategoryDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        ProductCategory.objects.filter(id=self.object.id).delete()
+        # ProductCategory.objects.filter(id=self.object.id).delete()
+        self.object.product_set.update(is_active=False)
+        self.object.is_active = False
+        self.object.save()
 
+        # category = ProductCategory.objects.all()
+        # context = {'object_list': category}
+        # result = render_to_string('admins/admin-categories-update-delete.html', context, request=request)
+        #
+        # return JsonResponse({'result': result})
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -160,8 +186,13 @@ class ProductDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        Product.objects.filter(id=self.object.id).delete()
+        # Product.objects.filter(id=self.object.id).delete()
+        self.object.is_active = False
+        self.object.save()
 
+        # product = ProductCategory.objects.all()
+        # context = {'object_list': product}
+        # result = render_to_string('admins/admin-products-read.html', context, request=request)
+
+        # return JsonResponse({'result': result})
         return HttpResponseRedirect(self.get_success_url())
-
-

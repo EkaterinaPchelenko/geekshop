@@ -22,6 +22,8 @@
                                     <th>Цена продукта</th>
                                     <th>Кол-во единиц продукта</th>
                                     <th>Категория</th>
+                                    <th>Активный</th>
+
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -32,6 +34,8 @@
                                     <th>Цена продукта</th>
                                     <th>Кол-во единиц продукта</th>
                                     <th>Категория</th>
+                                    <th>Активный</th>
+
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -47,6 +51,14 @@
                                         <td>{{ product.quantity }}</td>
                                         <td>{{ product.category.name }}</td>
 
+                                        <td class="text-center">
+                                            {% if product.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

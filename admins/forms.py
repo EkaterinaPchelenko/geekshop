@@ -31,16 +31,17 @@ class UserAdminProfileForm(UserProfileForm):
 
 
 class CategoryEditForm(forms.ModelForm):
+    discount = forms.IntegerField(widget=forms.NumberInput(),label='скидка', required=False,min_value=0, max_value=99, initial=0)
+
     class Meta:
         model = ProductCategory
         fields = '__all__'
 
 
     def __init__(self, *args, **kwargs):
-        super(forms.ModelForm, self).__init__(*args, **kwargs)
+        super(CategoryEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''
+            field.widget.attrs['class'] = 'form-control py-4'
 
 
 class ProductEditForm(forms.ModelForm):
