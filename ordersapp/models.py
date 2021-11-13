@@ -30,7 +30,7 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name='создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='обновлён', auto_now=True)
-    status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='статус', max_length=3, default='')
+    status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='статус', max_length=3, default='FM')
     is_active = models.BooleanField(verbose_name='активный', default=True)
 
     def __str__(self):
