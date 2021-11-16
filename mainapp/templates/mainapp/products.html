@@ -70,10 +70,21 @@
                                 <h5>{{ product.price }}</h5>
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
+                            {% if product.quantity == 0 %}
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-warning">Товар распродан</a>
+                                </div>
+                            {% endif %}
+                            {% if product.id in product_in_basket %}
+                                <div class="card-footer text-center">
+                                    <a href="{% url 'baskets:basket_remove_pr' product.id %}" class="btn btn-outline-danger">Удалить из корзины</a>
+                                </div>
+                            {% else %}
+                                <div class="card-footer text-center">
+                                    <a href="{% url 'baskets:basket' product.id %}" class="btn btn-outline-success">Отправить в корзину</a>
+                                </div>
+                            {% endif %}
 
-                            <div class="card-footer text-center">
-                                <a href="{% url 'baskets:basket' product.id %}" class="btn btn-outline-success">Отправить в корзину</a>
-                            </div>
                         </div>
                     </div>
                 {% endfor %}

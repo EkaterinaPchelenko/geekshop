@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.cache import cache_page, never_cache
 from django.views.generic import DetailView
 
+from baskets.models import Basket
 from mainapp.models import ProductCategory, Product
 import os, json
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -55,7 +56,7 @@ def get_product(pk):
 def products(request, category_id=None, page_id=1):
     # products = Product.objects.all()
     # categories = ProductCategory.objects.all()
-
+    product_in_basket = []
     products = Product.objects.filter(category_id=category_id).select_related(
         'category') if category_id != None else Product.objects.all()
 
@@ -69,11 +70,17 @@ def products(request, category_id=None, page_id=1):
     except EmptyPage:
         products_paginator = paginator.page(paginator.num_pages)
 
+    for product in Product.objects.all():
+        for basket in Basket.objects.all():
+            if product.id == basket.product_id:
+                product_in_basket.append(product.id)
+
     context = {
         "title": "Каталог",
         "products": products_paginator,
         # "categories": get_link_category,
         "categories": ProductCategory.objects.all(),
+        "product_in_basket": product_in_basket,
     }
     return render(request, 'mainapp/products.html', context)
 
