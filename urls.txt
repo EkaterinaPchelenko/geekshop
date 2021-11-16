@@ -1,0 +1,14 @@
+http://134.0.113.148/
+http://134.0.113.148/products/
+http://134.0.113.148/products/category/1/
+http://134.0.113.148/products/category/2/
+http://134.0.113.148/products/category/6/
+http://134.0.113.148/products/category/7/
+http://134.0.113.148/users/profile/
+http://134.0.113.148/ordersapp/
+http://134.0.113.148/ordersapp/update/18/
+http://134.0.113.148/ordersapp/update/20/
+http://134.0.113.148/admins/
+http://134.0.113.148/admins/categories/
+http://134.0.113.148/admins/users/
+http://134.0.113.148/admins/products/
